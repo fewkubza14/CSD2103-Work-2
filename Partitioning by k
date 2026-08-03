@@ -1,0 +1,37 @@
+import java.util.Arrays;
+
+public class PartitionByK {
+
+    public static void partitionRecursive(int[] a, int k, int left, int right) {
+        if (left >= right) return;
+        if (a[left] <= k) {
+            partitionRecursive(a, k, left + 1, right);
+        } else if (a[right] > k) {
+            partitionRecursive(a, k, left, right - 1);
+        } else {
+            int temp = a[left];
+            a[left] = a[right];
+            a[right] = temp;
+            partitionRecursive(a, k, left + 1, right - 1);
+        }
+    }
+
+    public static void partitionIterative(int[] a, int k) {
+        int left = 0, right = a.length - 1;
+        while (left < right) {
+            while (left < right && a[left] <= k) left++;
+            while (left < right && a[right] > k) right--;
+            if (left < right) {
+                int temp = a[left];
+                a[left] = a[right];
+                a[right] = temp;
+                left++;
+                right--;
+            }
+        }
+    }
+
+    public static void partitionBySorting(int[] a, int k) {
+        Arrays.sort(a); 
+    }
+}
