@@ -1,0 +1,14 @@
+Algorithm reverseRecursive(s):
+    Input: String s
+    Output: Reversed String
+    if length of s <= 1 then
+        return s
+    return s[length-1] + reverseRecursive(substring of s from 0 to length-2)
+
+Algorithm reverseIterative(s):
+    Input: String s
+    Output: Reversed String
+    create StringBuilder sb
+    for i from length of s - 1 down to 0 do
+        append s[i] to sb
+    return sb.toString()
