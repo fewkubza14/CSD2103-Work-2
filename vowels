@@ -1,0 +1,46 @@
+public class VowelConsonantCounter {
+
+    private static boolean isVowel(char ch) {
+        ch = Character.toLowerCase(ch);
+        return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u';
+    }
+
+    private static boolean isConsonant(char ch) {
+        ch = Character.toLowerCase(ch);
+        return ch >= 'a' && ch <= 'z' && !isVowel(ch);
+    }
+
+    private static int[] countRecursiveHelper(String s, int index) {
+        if (index >= s.length()) {
+            return new int[]{0, 0}; // [vowels, consonants]
+        }
+        int[] counts = countRecursiveHelper(s, index + 1);
+        char ch = s.charAt(index);
+        if (isVowel(ch)) counts[0]++;
+        else if (isConsonant(ch)) counts[1]++;
+        return counts;
+    }
+
+    public static boolean hasMoreVowelsRecursive(String s) {
+        if (s == null) return false;
+        int[] counts = countRecursiveHelper(s, 0);
+        return counts[0] > counts[1];
+    }
+
+    public static boolean hasMoreVowelsIterative(String s) {
+        if (s == null) return false;
+        int vowels = 0, consonants = 0;
+        for (int i = 0; i < s.length(); i++) {
+            char ch = s.charAt(i);
+            if (isVowel(ch)) vowels++;
+            else if (isConsonant(ch)) consonants++;
+        }
+        return vowels > consonants;
+    }
+
+    public static void main(String[] args) {
+        String input = "education";
+        System.out.println("Input: " + input);
+        System.out.println("Has More Vowels: " + hasMoreVowelsIterative(input)); // true
+    }
+}
