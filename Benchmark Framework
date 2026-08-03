@@ -1,0 +1,23 @@
+public class PerformanceTest {
+    public static void main(String[] args) {
+        int[] sizes = {100, 1000, 10000, 100000};
+        int runs = 5;
+
+        for (int n : sizes) {
+            int[] data = new int[n];
+            for (int i = 0; i < n; i++) data[i] = i * 2;
+
+            long totalTime = 0;
+            for (int r = 0; r < runs; r++) {
+                long start = System.nanoTime();
+                
+                TwoSumSorted.findPairBinarySearch(data, -1); 
+
+                long end = System.nanoTime();
+                totalTime += (end - start);
+            }
+            long avgTime = totalTime / runs;
+            System.out.println("Size N = " + n + " | Avg Execution Time: " + avgTime + " ns");
+        }
+    }
+}
