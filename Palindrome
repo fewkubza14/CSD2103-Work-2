@@ -1,0 +1,35 @@
+public class PalindromeChecker {
+
+    private static String preprocess(String s) {
+        if (s == null) return "";
+        return s.replaceAll("[^a-zA-Z0-9]", "").toLowerCase();
+    }
+
+    public static boolean isPalindromeByReverse(String s) {
+        String clean = preprocess(s);
+        String reversed = new StringBuilder(clean).reverse().toString();
+        return clean.equals(reversed);
+    }
+
+    public static boolean isPalindromeRecursive(String s, int left, int right) {
+        if (left >= right) {
+            return true;
+        }
+        if (s.charAt(left) != s.charAt(right)) {
+            return false;
+        }
+        return isPalindromeRecursive(s, left + 1, right - 1);
+    }
+    public static boolean isPalindromeRecursive(String s) {
+        String clean = preprocess(s);
+        return isPalindromeRecursive(clean, 0, clean.length() - 1);
+    }
+
+    public static void main(String[] args) {
+        String test1 = "racecar";
+        String test2 = "A man, a plan, a canal: Panama";
+        
+        System.out.println(test1 + " -> " + isPalindromeRecursive(test1)); // true
+        System.out.println(test2 + " -> " + isPalindromeRecursive(test2)); // true
+    }
+}
